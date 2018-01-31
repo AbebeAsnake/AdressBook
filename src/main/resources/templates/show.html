@@ -1,0 +1,22 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th ="www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8"/>
+    <title>Title</title>
+</head>
+<body>
+<a href="/">Show all Persons</a><br/>
+First Name:<span th:text="${person.firstName}"></span><br/>
+
+Last Name:<span th:text="${person.lastName}"></span><br/>
+
+Address:<span th:text="${person.address}"></span><br/>
+
+Phone Number:<span th:text="${person.phoneNumber}"></span><br/>
+Email:<span th:text="${person.email}"></span><br/>
+
+
+<a th:href="@{/delete/{id}(id=${person.id})}">Delete this course</a>
+
+</body>
+</html>
