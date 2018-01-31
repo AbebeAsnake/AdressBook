@@ -2,6 +2,8 @@ package com.example.demo;
 
 import org.springframework.data.repository.CrudRepository;
 
-public interface PersonRepository extends CrudRepository<Person,Long> {
+import java.util.List;
 
+public interface PersonRepository extends CrudRepository<Person,Long> {
+    List<Person> findByLastName(String lastName);
 }

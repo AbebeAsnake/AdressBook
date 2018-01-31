@@ -4,13 +4,11 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
+import org.springframework.web.bind.annotation.*;
 
 import javax.validation.Valid;
-import java.util.ArrayList;
+import java.util.List;
+
 
 @Controller
 public class HomeController {
@@ -22,9 +20,14 @@ public class HomeController {
         return "list";
     }
     @GetMapping("/add")
-    public  String courseForm(Model model){
+    public  String personForm(Model model){
         model.addAttribute("person",new Person());
         return "personform";
+    }
+    @GetMapping("/search")
+    public  String search(Model model){
+        model.addAttribute("person",new Person());
+        return "try";
     }
     @PostMapping("/process")
     public  String processForm(@Valid Person person, BindingResult result){
@@ -35,18 +38,27 @@ public class HomeController {
         return "redirect:/";
     }
     @RequestMapping("/detail/{id}")
-    public String showCourse(@PathVariable("id") long id, Model model){
+    public String showPerson(@PathVariable("id") long id, Model model){
         model.addAttribute("person",personRepository.findOne(id));
         return "show";
     }
     @RequestMapping("update/{id}")
-    public String updateCourse(@PathVariable("id") long id, Model model){
+    public String updatePerson(@PathVariable("id") long id, Model model){
         model.addAttribute("person", personRepository.findOne(id));
         return "personform";
     }
     @RequestMapping("/delete/{id}")
-    public String delCourse(@PathVariable("id") long id){
+    public String delPerson(@PathVariable("id") long id){
         personRepository.delete(id);
         return "redirect:/";
     }
+    @RequestMapping("/searchform")
+    public  String serachByLastName(@RequestParam("lastName") String lastName,Model model){
+        List<Person> persons = personRepository.findByLastName(lastName);
+        model.addAttribute("person",persons);
+        return "list";
+    }
+
+
+
 }
